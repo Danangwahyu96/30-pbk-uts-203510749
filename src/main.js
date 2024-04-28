@@ -1,25 +1,7 @@
-const { createApp } = Vue;
-
-createApp({
-  data() {
-    return {
-      newTask: '',
-      tasks: [
-        { title: 'Task 1', completed: false },
-        { title: 'Task 2', completed: true },
-        { title: 'Task 3', completed: false },
-      ],
-    };
-  },
-  computed: {
-    completedTasks() {
-      return this.tasks.filter(task => task.completed).length;
-    },
-  },
-  methods: {
+methods: {
     addTask() {
       if (this.newTask.trim()) {
-        this.tasks.push({ title: this.newTask.trim(), completed: false });
+        this.tasks.push({ title: this.newTask.trim(), completed: false, editing: false });
         this.newTask = '';
       }
     },
@@ -29,5 +11,10 @@ createApp({
     clearCompleted() {
       this.tasks = this.tasks.filter(task => !task.completed);
     },
+    editTask(index) {
+      this.tasks[index].editing = true;
+    },
+    toggleCompleted(task) {
+      task.completed = !task.completed;
+    },
   },
-}).mount('#app');
