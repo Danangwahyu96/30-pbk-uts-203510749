@@ -1,13 +1,16 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>todo app</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
-</html>
+<div id="app">
+  <h1>To-Do List</h1>
+  <form @submit.prevent="addTask">
+    <input v-model="newTask" placeholder="Add a new task...">
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    <li v-for="(task, index) in tasks" :key="index">
+      <input type="checkbox" v-model="task.completed">
+      <span :class="{ completed: task.completed }">{{ task.title }}</span>
+      <button @click="removeTask(index)">Remove</button>
+    </li>
+  </ul>
+  <p>Completed tasks: {{ completedTasks }}</p>
+  <button @click="clearCompleted">Clear completed</button>
+</div>
